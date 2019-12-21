@@ -1,0 +1,19 @@
+<template>
+    <template if:true={fileID}>
+        <lightning-checkbox-group name="Files Group"
+            label="Select the Files to download as one Zip file"
+            options={options}
+            value={filesToDownload}
+            onchange={handleChange}>
+        </lightning-checkbox-group>
+        </template>
+    
+        <template if:false={fileID}>
+            <lightning-card><div class="slds-text-align_center">No files found.</div></lightning-card>
+        </template>
+
+        <div class="slds-m-top_small slds-m-bottom_medium">
+            <!-- Neutral variant (default) -->
+            <lightning-button label="Download Zip File" title="Download action" icon-name="utility:download" class="slds-m-left_x-small" onclick={downloadZip}></lightning-button>
+        </div>
+</template>
