@@ -1,6 +1,5 @@
 public with sharing class ZipSFDCFilesController {
-        public ZipSFDCFilesController() {
-        }
+        
         @AuraEnabled(cacheable=true)
         public static Map<ID, String> getRelatedFilesByRecordId(String recordId) {
         
@@ -12,12 +11,17 @@ public with sharing class ZipSFDCFilesController {
         }
 
         List<ContentVersion> docs = [SELECT ContentDocumentId, FileExtension, Title 
-            FROM ContentVersion WHERE ContentDocumentId IN : fileIDs];
+                                     FROM ContentVersion WHERE ContentDocumentId IN : fileIDs];
 
         Map<ID, String> mapIdTitle = new Map<ID, String>();
         
         for (ContentVersion docLink : docs) {
-            mapIdTitle.put(docLink.ContentDocumentId, docLink.Title);
+            if (docLink.FileExtension != null) {
+                mapIdTitle.put(docLink.ContentDocumentId, docLink.Title + '.' + docLink.FileExtension);
+            }
+            else {
+                mapIdTitle.put(docLink.ContentDocumentId, docLink.Title);
+            }
         }
         
         return mapIdTitle;

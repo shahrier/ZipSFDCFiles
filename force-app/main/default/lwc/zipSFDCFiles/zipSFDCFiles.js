@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { LightningElement, api, track, wire } from 'lwc';
 import { NavigationMixin } from 'lightning/navigation';
 import getRelatedFilesByRecordId from '@salesforce/apex/ZipSFDCFilesController.getRelatedFilesByRecordId';
@@ -7,18 +8,19 @@ export default class zipSFDCFiles extends NavigationMixin(LightningElement) {
     @api recordId;
     @track fileID;
     @track filesToDownload = [];
+    SFDCFiles = [];
     
     @wire(getRelatedFilesByRecordId, { recordId: '$recordId' })
-    /* jshint ignore:end */ 
+    /* jshint ignore:end */
     wiredFieldValue({ error, data }) {
         if (data) {
-            this.filesToDownload = data;
+            this.SFDCFiles = data;
+            console.log(this.SFDCFiles);
             this.error = undefined;
             const fileIDs = Object.keys(data);
             this.fileID =  fileIDs.length ? fileIDs[0] : undefined; 
         } else if (error) {
             this.error = error;
-            this.filesToDownload = undefined; 
             this.fileID = undefined; 
         }
     }
