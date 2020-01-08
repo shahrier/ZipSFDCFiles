@@ -3,9 +3,6 @@
         "experimentalDecorators": true,
         "baseUrl": ".",
         "paths": {
-            "c/ZipSFDCFiles": [
-                "ZipSFDCFiles/ZipSFDCFiles.js"
-            ],
             "c/zipSFDCFiles": [
                 "zipSFDCFiles/zipSFDCFiles.js"
             ]
