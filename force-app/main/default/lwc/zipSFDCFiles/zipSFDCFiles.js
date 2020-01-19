@@ -44,13 +44,15 @@ export default class zipSFDCFiles extends NavigationMixin(LightningElement) {
     }
 
     downloadZip() {
-        this[NavigationMixin.Navigate]({
-            type: 'standard__webPage',
-            attributes: {
-                url: '/sfc/servlet.shepherd/document/download/' + this.filesToDownload.join('/')
-            }
-        },
-        false
-      );
+        if (this.filesToDownload.length > 0) {
+            this[NavigationMixin.Navigate]({
+                type: 'standard__webPage',
+                attributes: {
+                    url: '/sfc/servlet.shepherd/document/download/' + this.filesToDownload.join('/')
+                }
+            },
+            false
+            );
+        }
     }
 }
